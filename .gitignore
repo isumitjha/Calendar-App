@@ -257,5 +257,5 @@ venv/*
 *.sqlite3
 venv/
 
-
+# Added .DS_Store
 .DS_Store
