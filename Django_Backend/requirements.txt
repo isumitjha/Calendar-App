@@ -1,0 +1,15 @@
+asgiref
+cffi
+cryptography
+Django
+django-cors-headers
+django-csp
+djangorestframework
+djangorestframework-simplejwt
+gunicorn
+pycparser
+PyJWT
+python-dotenv
+pytz
+sqlparse
+typing-extensions
