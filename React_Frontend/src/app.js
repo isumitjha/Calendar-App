@@ -10,10 +10,13 @@ import { NotFoundPage } from "./pages/not-found-page";
 import { ProfilePage } from "./pages/profile-page";
 import { ProtectedPage } from "./pages/protected-page";
 import { PublicPage } from "./pages/public-page";
+import CalendarPage from './pages/calendar-page';  // Import the calendar page component
 
 export const App = () => {
   const { isLoading } = useAuth0();
 
+  console.log("App loading state:", isLoading);  // Log the loading state
+  
   if (isLoading) {
     return (
       <div className="page-layout">
@@ -38,9 +41,12 @@ export const App = () => {
         path="/admin"
         element={<AuthenticationGuard component={AdminPage} />}
       />
+      <Route
+        path="/calendar"
+        element={<AuthenticationGuard component={CalendarPage} />}  // Add the CalendarPage route here
+      />
       <Route path="/callback" element={<CallbackPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 };
-

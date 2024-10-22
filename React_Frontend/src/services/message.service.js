@@ -20,6 +20,7 @@ export const getPublicResource = async () => {
 };
 
 export const getProtectedResource = async (accessToken) => {
+  console.log('Access Token:', accessToken); // Debugging
   const config = {
     url: `${apiServerUrl}/api/messages/protected`,
     method: "GET",

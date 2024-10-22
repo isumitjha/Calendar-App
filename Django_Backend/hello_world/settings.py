@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'messages_api',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [
@@ -139,9 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CLIENT_ORIGIN_URL = get_env_var('CLIENT_ORIGIN_URL')
 
 CORS_ALLOWED_ORIGINS = [CLIENT_ORIGIN_URL]
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True  # For development purposes
 
 CORS_ALLOW_METHODS = [
-    "GET",
+    "GET","POST","PUT","DELETE"
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -162,6 +165,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTTokenUserAuthentication',
     ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 # JWT
@@ -177,3 +183,29 @@ SIMPLE_JWT = {
     'USER_ID_CLAIM': 'sub',
     'AUTH_TOKEN_CLASSES': ('authz.tokens.Auth0Token',),
 }
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console'],
+#         'level': 'DEBUG',  # Use 'DEBUG' to see all logs
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'messages_api': {  # Replace 'myapp' with the actual app name
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }

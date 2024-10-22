@@ -24,3 +24,86 @@
     margin-top: 6.4rem;
   }
 }
+
+/* Profile Page Styling - mimic code snippet box style */
+.profile__details-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 0.8rem;
+  margin-top: 3.2rem;
+  overflow: hidden;
+}
+
+.profile__container {
+  min-height: 32.4rem;
+  background-color: var(--dark-aluminium);
+  overflow-x: auto;
+}
+
+.profile__title1 {
+  height: 4.8rem;
+  width: 100%;
+  background-color: var(--aqua);
+  color: var(--black);
+  font-family: "Fira Code", source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  padding: 1.2rem 1.6rem;
+}
+
+.profile__wrapper {
+  display: inline-block;
+  padding: 32px;
+}
+
+.profile__body {
+  margin: 0;
+  color: var(--white);
+  font-size: 16px;
+  line-height: 32px;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.profile__info-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.profile__info-list li {
+  margin-bottom: 10px;
+}
+
+.profile__info-list li strong {
+  display: inline-block;
+  width: 150px;
+  font-weight: bold;
+}
+
+.profile__picture {
+  border-radius: 50%;
+  margin-right: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+@media only screen and (max-width: 480px) {
+  .profile__title {
+    height: 4.4rem;
+    font-size: 1.4rem;
+    line-height: 2.2rem;
+    padding: 1.2rem 1.6rem;
+  }
+
+  .profile__wrapper {
+    padding: 1.6rem;
+  }
+
+  .profile__body {
+    font-size: 1.4rem;
+    line-height: 2.4rem;
+  }
+}
+

@@ -152,3 +152,39 @@ code {
     overflow: hidden;
   }
 }
+
+/* Assuming you have a CSS file for CalendarPage */
+.calendar-container {
+  display: flex;
+  margin-top: 20px;
+}
+
+.sidebar {
+  width: 300px; /* Adjust width as needed */
+  padding: 20px;
+  border-right: 1px solid #ccc; /* Add a separator */
+}
+
+.calendar {
+  flex-grow: 1; /* Allow the calendar to take the remaining space */
+  padding: 20px;
+}
+
+.sidebar form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar input,
+.sidebar textarea {
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+.sidebar button {
+  background-color: #4caf50; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 15px;
+  cursor: pointer; /* Pointer cursor */
+}
