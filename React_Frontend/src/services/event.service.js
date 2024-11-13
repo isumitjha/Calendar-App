@@ -1,34 +1,8 @@
-// import axios from 'axios';
-
-// const API_URL = 'http://localhost:6060/api/messages/events/';
-
-// export const getEvents = async (token) => {
-//     return await axios.get(API_URL, {
-//         headers: {
-//             Authorization: `Bearer ${token}`  // Pass token for authentication
-//         }
-//     });
-// };
-
-// export const createEvent = async (event, token) => {
-//     return await axios.post(API_URL, event, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     });
-// };
-
-// export const deleteEvent = async (id, token) => {
-//     return await axios.delete(`${API_URL}${id}/`, {
-//         headers: {
-//             Authorization: `Bearer ${token}`
-//         }
-//     });
-// };
-
 import axios from 'axios';
 
-const API_URL = 'http://localhost:6060/api/messages/events/';
+// const API_URL = 'http://localhost:6060/api/messages/events/';
+const API_URL = 'http://localhost/api/messages/events/';
+// const API_URL = process.env.REACT_APP_API_SERVER_URL;
 
 export const getEvents = async (token) => {
     return await axios.get(API_URL, {

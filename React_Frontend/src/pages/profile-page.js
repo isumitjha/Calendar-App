@@ -20,7 +20,8 @@ export const ProfilePage = () => {
         };
         console.log(userData)
         // Send a request to the backend to create the user
-        await axios.post('http://localhost:6060/api/messages/create-user/', userData, {
+        // await axios.post('http://localhost:6060/api/messages/create-user/', userData, {
+        await axios.post('http://localhost/api/messages/create-user/', userData, {
           headers: {
             Authorization: `Bearer ${token}`,  // Include token in the request headers
             'Content-Type': 'application/json',

@@ -139,7 +139,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CLIENT_ORIGIN_URL = get_env_var('CLIENT_ORIGIN_URL')
 
-CORS_ALLOWED_ORIGINS = [CLIENT_ORIGIN_URL]
+# CORS_ALLOWED_ORIGINS = [CLIENT_ORIGIN_URL]
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost",
+    "http://localhost:80",  # Add if necessary
+]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ORIGIN_ALLOW_ALL = True  # For development purposes
 

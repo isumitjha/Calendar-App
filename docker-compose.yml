@@ -1,0 +1,120 @@
+# version: "3.8"
+
+# services:
+#   # Traefik reverse proxy
+#   traefik:
+#     image: traefik:v2.9
+#     command:
+#       - "--api.insecure=true"  # Enable Traefik dashboard (optional for development)
+#       - "--providers.docker=true"
+#       - "--entrypoints.web.address=:80"  # HTTP entrypoint for the app
+#     ports:
+#       - "80:80"  # Expose port 80 for HTTP
+#       - "8080:8080"  # Traefik dashboard (optional)
+#     networks:
+#       - app-network
+#     volumes:
+#       - "/var/run/docker.sock:/var/run/docker.sock"  # Required for Traefik to communicate with Docker
+#     labels:
+#       - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+  
+#   # Django Backend API
+#   api:
+#     build: ./Django_Backend
+#     image: calendar-app-backend
+#     env_file:
+#       - /Users/anybody/Desktop/Work/Calender-App/Django_Backend/.env
+#     networks:
+#       - app-network
+#     volumes:
+#       - ./Django_Backend/db.sqlite3:/app/db.sqlite3  # Map SQLite database
+#       - ./Django_Backend:/app  # Map the whole backend directory
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.api.rule=PathPrefix(`/api`)"  # Route all `/api` requests to the backend
+#       - "traefik.http.routers.api.entrypoints=web"
+#       - "traefik.http.services.api.loadbalancer.server.port=6060"  # Backend service port
+
+#   # React Frontend
+#   frontend:
+#     build:
+#       context: ./React_Frontend
+#       dockerfile: Dockerfile
+#     image: calendar-app-frontend
+#     env_file:
+#       - /Users/anybody/Desktop/Work/Calender-App/React_Frontend/.env
+#     networks:
+#       - app-network
+#     labels:
+#       - "traefik.enable=true"
+#       - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"  # Route root `/` to the frontend
+#       - "traefik.http.routers.frontend.entrypoints=web"
+#       - "traefik.http.services.frontend.loadbalancer.server.port=80"  # Frontend service port
+
+# networks:
+#   app-network:
+#     driver: bridge
+
+
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v2.9
+    command:
+      - "--api.insecure=true"  # Enable Traefik dashboard (optional)
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"         # HTTP entrypoint
+      - "--entrypoints.websecure.address=:443"  # HTTPS entrypoint
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=7sumitjha@gmail.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+      - "8080:8080"  # Traefik dashboard
+    networks:
+      - app-network
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./letsencrypt:/letsencrypt"   # Persistent storage for SSL certificates
+    labels:
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+
+  api:
+    build: ./Django_Backend
+    image: calendar-app-backend
+    env_file:
+      - /Users/anybody/Desktop/Work/Calender-App/Django_Backend/.env
+    networks:
+      - app-network
+    volumes:
+      - ./Django_Backend/db.sqlite3:/app/db.sqlite3
+      - ./Django_Backend:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.api.entrypoints=websecure"
+      - "traefik.http.routers.api.tls.certresolver=myresolver"
+      - "traefik.http.services.api.loadbalancer.server.port=6060"
+
+  frontend:
+    build:
+      context: ./React_Frontend
+      dockerfile: Dockerfile
+    image: calendar-app-frontend
+    env_file:
+      - /Users/anybody/Desktop/Work/Calender-App/React_Frontend/.env
+    networks:
+      - app-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=PathPrefix(`/`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - "traefik.http.services.frontend.loadbalancer.server.port=80"
+
+networks:
+  app-network:
+    driver: bridge
+

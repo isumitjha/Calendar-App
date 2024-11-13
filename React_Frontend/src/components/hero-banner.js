@@ -16,7 +16,8 @@ export const HeroBanner = () => {
         id="code-sample-link"
         // target="_blank"
         rel="noopener noreferrer"
-        href="http://localhost:4040/profile"
+        // href="http://localhost:4040/profile"
+        href="http://localhost:80/profile"
         className="button button--secondary"
       >
         Please Log In to Continue
